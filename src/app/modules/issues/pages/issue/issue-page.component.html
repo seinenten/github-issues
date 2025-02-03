@@ -1,0 +1,22 @@
+@let idIssue = issueNumber()!;
+
+<h1>Issue <span>{{ idIssue }}</span></h1>
+
+<a [routerLink]="['/']">Regresar</a>
+
+@if (issueQuery.data()  === undefined){
+  <p>Cargando issue</p>
+} @else {
+  <issue-comment [issue]="issueQuery.data()!"/>
+}
+
+<!-- Comments -->
+@if (issueCommentsQuery.data()  === undefined){
+  <p>Cargando issue</p>
+} @else {
+  @for (issueComment of issueCommentsQuery.data(); track issueComment.id) {
+    <issue-comment [issue]="issueComment!"/>
+  }@empty{
+    <p>No hay comentarios</p>
+  }
+}
